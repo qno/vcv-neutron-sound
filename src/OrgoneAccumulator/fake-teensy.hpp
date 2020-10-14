@@ -55,7 +55,6 @@ public:
 
 struct EEPROMClass
 {
-   
    uint8_t read(int idx)
    { return 1; }
    void write(int idx, uint8_t val)
@@ -152,14 +151,14 @@ void attachInterrupt(uint8_t pin, void (* function)(void), int mode)
 #define portConfigRegister(pin) ((volatile uint32_t *)(pin))
 
 #define abs(x) ({ \
-  typeof(x) _x = (x); \
+  auto _x = (x); \
   (_x > 0) ? _x : -_x; \
 })
 
 #define constrain(amt, low, high) ({ \
-  typeof(amt) _amt = (amt); \
-  typeof(low) _low = (low); \
-  typeof(high) _high = (high); \
+  auto _amt = (amt); \
+  auto _low = (low); \
+  auto _high = (high); \
   (_amt < _low) ? _low : ((_amt > _high) ? _high : _amt); \
 })
 
@@ -220,8 +219,6 @@ int32_t random(int32_t howsmall, int32_t howbig)
    int32_t diff = howbig - howsmall;
    return random(diff) + howsmall;
 }
-
-//using boolean = bool;
 
 #include <type_traits>
 // when the input number is an integer type, do all math as 32 bit signed long
