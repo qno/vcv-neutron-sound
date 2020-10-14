@@ -1,0 +1,23 @@
+{
+  "slug": "NeutronSound",
+  "name": "Neutron Sound",
+  "version": "1.0.1",
+  "license": "MIT",
+  "brand": "Neutron Sound",
+  "author": "Silvio Kunaschk",
+  "authorEmail": "silvio.kunaschk@gmail.com",
+  "authorUrl": "",
+  "pluginUrl": "https://github.com/qno/vcv-neutron-sound",
+  "manualUrl": "http://www.neutron-sound.com/PDFs",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "OrgoneAccumulator",
+      "name": "Orgone Accumulator",
+      "description": "The Orgone Accumulator is a digital phase-accumulation oscillator module\ncapable of creating a wide range of timbres, from classic\nsubtractive-synth-style sounds, to PPG-wavetable stuff, and hardcore FM!",
+      "tags": ["Oscillator", "Hardware clone"]
+    }
+  ]
+}
