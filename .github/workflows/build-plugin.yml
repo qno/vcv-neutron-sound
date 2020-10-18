@@ -1,5 +1,5 @@
 name: Build VCV Rack Plugin
-on: [push]
+on: [push, pull_request]
 
 env:
   create-mingw-profile: |
@@ -43,22 +43,22 @@ jobs:
             strip-param: -s,
             plugin-os: "lin"
           }
-        #- {
-        #    name: MacOS,
-        #    os: macos-latest,
-        #    pip-cmd: pip,
-        #    prepare-env: "export PATH=$PATH:$HOME/.local/bin; brew update || brew update; brew install p7zip",
-        #    conan-libcxx-setting: "",
-        #    conan-profile: "",
-        #    activate-env: . ./activate.sh,
-        #    deactivate-env: . ./deactivate.sh,
-        #    define-plugin-env: "PLUGIN_SLUG=`jq -r .slug ../plugin.json`; PLUGIN_VERSION=`jq -r .version ../plugin.json`",
-        #    plugin-slug: "$PLUGIN_SLUG",
-        #    plugin-version: "$PLUGIN_VERSION",
-        #    plugin-suffix: dylib,
-        #    strip-param: -S,
-        #    plugin-os: mac
-        #  }
+        - {
+            name: MacOS,
+            os: macos-latest,
+            pip-cmd: pip,
+            prepare-env: "export PATH=$PATH:$HOME/.local/bin; brew update || brew update; brew install p7zip",
+            conan-libcxx-setting: "",
+            conan-profile: "",
+            activate-env: . ./activate.sh,
+            deactivate-env: . ./deactivate.sh,
+            define-plugin-env: "PLUGIN_SLUG=`jq -r .slug ../plugin.json`; PLUGIN_VERSION=`jq -r .version ../plugin.json`",
+            plugin-slug: "$PLUGIN_SLUG",
+            plugin-version: "$PLUGIN_VERSION",
+            plugin-suffix: dylib,
+            strip-param: -S,
+            plugin-os: mac
+          }
         - {
             name: Windows,
             os: windows-latest,
