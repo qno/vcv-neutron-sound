@@ -81,9 +81,16 @@ jobs:
         with:
          python-version: 3.x
       - name: create conan MinGW profile
+        shell: cmd
         if: ${{ matrix.config.os == 'windows-latest' }}
         run: ${{ env.create-mingw-profile }}
-        shell: cmd
+      - name: Modify plugin version
+        shell: bash
+        run: |
+          gitrev=`git rev-parse --short HEAD`
+          pluginversion=`jq -r '.version' plugin.json`
+          echo "Set plugin version from $pluginversion to $pluginversion-$gitrev"
+          cat <<< `jq --arg VERSION "$pluginversion-$gitrev" '.version=$VERSION' plugin.json` > plugin.json
       - name: Build Plugin
         run: |
           ${{ matrix.config.prepare-env }}
@@ -108,7 +115,6 @@ jobs:
           ${{ matrix.config.activate-env }}
           popd
           make dist
-
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
