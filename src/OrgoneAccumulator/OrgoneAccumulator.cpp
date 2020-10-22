@@ -3,8 +3,10 @@
 
 using namespace rack;
 
-struct OrgoneAccumulator : Module {
-   enum ParamIds {
+struct OrgoneAccumulator : Module
+{
+   enum ParamIds
+   {
       KNOB_A_WAVE_PARAM,
       KNOB_B_WAVE_PARAM,
       KNOB_C_WAVE_PARAM,
@@ -30,7 +32,8 @@ struct OrgoneAccumulator : Module {
       KNOB_EFFECT_ATT_PARAM,
       NUM_PARAMS
    };
-   enum InputIds {
+   enum InputIds
+   {
       RESET_INPUT,
       CV_SCAN_INPUT,
       V_OCTAVE_INPUT,
@@ -43,26 +46,29 @@ struct OrgoneAccumulator : Module {
       CV_C_INPUT,
       NUM_INPUTS
    };
-   enum OutputIds {
+   enum OutputIds
+   {
       MAIN_OUTPUT,
       PWM_SUB_OUTPUT,
       NUM_OUTPUTS
    };
-   enum LightIds {
-      A_LIGHT,
-      FM_LIGHT,
-      PULS_LIGHT,
-      B_LIGHT,
-      C_LIGHT,
-      CX_LIGHT,
-      FX_LIGHT,
-      FIX_LIGHT,
-      TUNELOCK_LIGHT,
-      FINE_LIGHT,
+   enum LightIds
+   {
+      ENUMS(A_LIGHT, 3),
+      ENUMS(FM_LIGHT, 3),
+      ENUMS(PULS_LIGHT, 3),
+      ENUMS(B_LIGHT, 3),
+      ENUMS(C_LIGHT, 3),
+      ENUMS(CX_LIGHT, 3),
+      ENUMS(FX_LIGHT, 3),
+      ENUMS(FIX_LIGHT, 3),
+      ENUMS(TUNELOCK_LIGHT, 3),
+      ENUMS(FINE_LIGHT, 3),
       NUM_LIGHTS
    };
-
-   OrgoneAccumulator() {
+   
+   OrgoneAccumulator()
+   {
       config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
       configParam(KNOB_A_WAVE_PARAM, 0.f, 1.f, 0.f, "");
       configParam(KNOB_B_WAVE_PARAM, 0.f, 1.f, 0.f, "");
@@ -88,11 +94,17 @@ struct OrgoneAccumulator : Module {
       configParam(KNOB_FREQUENCY_ATT_PARAM, 0.f, 1.f, 0.f, "");
       configParam(KNOB_EFFECT_ATT_PARAM, 0.f, 1.f, 0.f, "");
    }
-
-   void process(const ProcessArgs& args) override {
+   
+   void process(const ProcessArgs& args) override
+   {
+      auto volt_a = inputs[CV_A_INPUT].getVoltage();
+      auto volt_b = inputs[CV_B_INPUT].getVoltage();
+      auto volt_c = inputs[CV_C_INPUT].getVoltage();
+      lights[A_LIGHT + 0].setBrightness(volt_a);
+      lights[A_LIGHT + 1].setBrightness(volt_b);
+      lights[A_LIGHT + 2].setBrightness(volt_c);
    }
 };
-
 
 struct OrgoneAccumulatorWidget : ModuleWidget {
    OrgoneAccumulatorWidget(OrgoneAccumulator* module) {
