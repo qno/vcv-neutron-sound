@@ -2045,7 +2045,7 @@ void setup() {
   delay(1);  
   }
 
-  outUpdateTimer.begin(&outUpdateISR_MAIN, ISRrate); //this is the oscillator and DAC output update rate in uS
+  outUpdateTimer.begin(outUpdateISR_MAIN, ISRrate); //this is the oscillator and DAC output update rate in uS
 
   delay(10);
 
