@@ -47,7 +47,7 @@ jobs:
             name: MacOS,
             os: macos-latest,
             pip-cmd: pip,
-            prepare-env: "export PATH=$PATH:$HOME/.local/bin; rm -rf /usr/local.git; brew update; brew install p7zip",
+            prepare-env: "export PATH=$PATH:$HOME/.local/bin; brew update || brew update; brew install p7zip",
             conan-libcxx-setting: "",
             conan-profile: "",
             activate-env: . ./activate.sh,
